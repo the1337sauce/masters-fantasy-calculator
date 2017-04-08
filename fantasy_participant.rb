@@ -2,7 +2,7 @@ class FantasyParticipant
 
   attr_reader :golfer_names, :name, :team_name
   attr_accessor :round1_score, :round2_score, :round3_score, :round4_score,
-  :round1_top_golfers, :round2_top_golfers, :round3_top_golfers, :round4_top_golfers
+    :round1_top_golfers, :round2_top_golfers, :round3_top_golfers, :round4_top_golfers
 
   def initialize participant_row
     @name = participant_row[3]
@@ -17,6 +17,10 @@ class FantasyParticipant
 
   def overall_score_after_two_rounds
     round1_score + round2_score
+  end
+
+  def overall_score_after_three_rounds
+    round1_score + round2_score + round3_score
   end
 
   def to_s

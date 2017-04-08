@@ -1,5 +1,5 @@
 class GolferResult
-  attr_reader :r1, :r2, :r3, :r4, :to_par, :pos, :name, :thru
+  attr_reader :r1, :r2, :r3, :r4, :to_par, :pos, :name, :thru, :today
 
   def initialize response_hash
     @r1 = response_hash['r1']
@@ -8,7 +8,9 @@ class GolferResult
     @r4 = response_hash['r4']
     @to_par = response_hash['to_par']
     @pos = response_hash['pos']
+    @thru = response_hash['thru']
     @name = response_hash['player']
+    @today = response_hash['today'].to_i
     if @name.eql? 'Rafael Cabrera Bello'
       @name = 'Rafael Cabrera-Bello'
     end
@@ -26,7 +28,7 @@ class GolferResult
   end
 
   def to_s
-    "#{@name} currently #{@to_par}"
+    "#{@name} currently #{@to_par}, today: #{@today}"
   end
 
 end
