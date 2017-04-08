@@ -9,10 +9,10 @@ require './fantasy_scorer.rb'
 #6-13 = golfers
 
 parsed_players_response = JSON.parse(RestClient.get 'http://samsandberg.com/themasters/', {accept: :json})['players']
-players = parsed_players_response.map { |player| Player.new(player) }.each_with_object({}) { |player, hash| hash[player.last_name] = player }
+players = parsed_players_response.map { |player| GolferResult.new(player) }.each_with_object({}) { |player, hash| hash[player.last_name] = player }
 fantasy_picks = CSV.read('picks.csv')
 fantasy_picks.shift
-puts fantasy_picks
+#puts fantasy_picks
 
 name_to_scores = []
 CSV.foreach('picks.csv') do |row|
@@ -37,6 +37,8 @@ current_rank = 0
 iterations = 1
 last_score = -99999999999
 
+#calculate overall ranks
+
 sorted_name_to_scores.each do |sorted_name_to_scores|
 	name = sorted_name_to_scores[0]
 	score = sorted_name_to_scores[1]
@@ -45,5 +47,5 @@ sorted_name_to_scores.each do |sorted_name_to_scores|
 		current_rank = iterations
 	end
 	iterations += 1
-	# puts "Rank: #{current_rank} - #{name} is: #{score}"
+	puts "Rank: #{current_rank} - #{name} is: #{score}"
 end

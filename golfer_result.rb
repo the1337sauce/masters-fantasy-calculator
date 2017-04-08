@@ -1,4 +1,4 @@
-class Golfer
+class GolferResult
   attr_reader :r1, :r2, :r3, :r4, :to_par, :pos, :name
 
   def initialize response_hash
