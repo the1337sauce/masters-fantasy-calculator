@@ -4,19 +4,31 @@ class GolferResult
   def initialize response_hash
     @r1 = response_hash['r1']
     @r2 = response_hash['r2']
-    @r3 = response_hash['r3']
-    @r4 = response_hash['r4']
+    @r3 = calculate_round3(response_hash)
+    @r4 = calculate_round4(response_hash)
     @to_par = response_hash['to_par']
     @pos = response_hash['pos']
     @thru = response_hash['thru']
     @name = response_hash['player']
-    @today = response_hash['today'].to_i
+    @today = calculate_today(response_hash)
     if @name.eql? 'Rafael Cabrera Bello'
       @name = 'Rafael Cabrera-Bello'
     end
     if @name.eql? "Sean O&#39;Hair"
       @name = "Sean O'Hair"
     end
+  end
+
+  def calculate_today response_hash
+    response_hash['thru'] == 'CUT' ? 8 : response_hash['today'].to_i
+  end
+
+  def calculate_round3 response_hash
+    response_hash['thru'] == 'CUT' ? 80 : response_hash['r3'].to_i
+  end
+
+  def calculate_round4 response_hash
+    response_hash['thru'] == 'CUT' ? 80 : response_hash['r4'].to_i
   end
 
   def last_name
