@@ -10,11 +10,23 @@ require './fantasy_participant.rb'
 def calculate_ranks_response
 	participants = calculate_scores_for_participants
 	response = []
+
+	current_rank = 1
+	last_score = -99999
+	iterations = 1
+
 	participants.each do |participant|
+		through_third_round = participant.overall_score_after_three_rounds
+		if through_third_round > last_score
+			current_rank = iterations
+			last_score = through_third_round
+		end
 		response << {
 								team_name: participant.team_name,
-								through_third_round: participant.overall_score_after_three_rounds
+								through_third_round: through_third_round,
+								rank: current_rank
 							}
+		iterations = iterations + 1
 	end
 	response
 end

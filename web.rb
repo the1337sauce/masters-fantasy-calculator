@@ -1,6 +1,7 @@
 require 'sinatra'
 require './calculate_ranks'
 
-get '/' do
-  "#{calculate_ranks_response}"
+get '/results' do
+  @results = calculate_ranks_response
+  erb :results
 end
