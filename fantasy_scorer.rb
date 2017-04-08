@@ -12,10 +12,10 @@ class FantasyScorer
     @fantasy_participants.each do |participant|
       participant.round1_score = calculate_round(:r1, participant.golfer_names)
       participant.round2_score = calculate_round(:r2, participant.golfer_names)
-      participant.round3_score = calculate_third_round_thus_far(participant.golfer_names)
+      participant.round3_score = calculate_todays_round_thus_far(participant.golfer_names)
       participant.round1_top_golfers = top_golfers(:r1, participant.golfer_names)
       participant.round2_top_golfers = top_golfers(:r2, participant.golfer_names)
-      participant.round3_top_golfers = calculate_third_round_top_golfers_thus_far(participant.golfer_names)
+      participant.round3_top_golfers = calculate_todays_round_top_golfers_thus_far(participant.golfer_names)
     end
   end
 
@@ -26,11 +26,11 @@ class FantasyScorer
     total_score - (72*6)
   end
 
-  def calculate_third_round_thus_far golfer_names
+  def calculate_todays_round_thus_far golfer_names
     calculate_third_round_top_golfers_thus_far(golfer_names).map { |golfer_result| golfer_result.today.to_i }.reduce(:+)
   end
 
-  def calculate_third_round_top_golfers_thus_far golfer_names
+  def calculate_todays_round_top_golfers_thus_far golfer_names
     golfer_results(golfer_names).sort_by { |golfer| golfer.today.to_i }[0, 6]
   end
 
