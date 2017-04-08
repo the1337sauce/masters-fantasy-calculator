@@ -27,7 +27,7 @@ class FantasyScorer
   end
 
   def calculate_todays_round_thus_far golfer_names
-    calculate_third_round_top_golfers_thus_far(golfer_names).map { |golfer_result| golfer_result.today.to_i }.reduce(:+)
+    calculate_todays_round_top_golfers_thus_far(golfer_names).map { |golfer_result| golfer_result.today.to_i }.reduce(:+)
   end
 
   def calculate_todays_round_top_golfers_thus_far golfer_names
