@@ -1,0 +1,9 @@
+<table>
+<% @results.each do |result| %>
+  <tr>
+    <td>
+      <%= "#{result[:team_name]} - score: #{result[:through_third_round]}"  %>
+    </td>
+  </tr>
+<% end %>
+</table>
