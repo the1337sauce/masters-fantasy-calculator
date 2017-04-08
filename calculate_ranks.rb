@@ -30,7 +30,7 @@ class Player
 	end
 
 	def cut?
-		@to_par.eql?'CUT'
+		@to_par.eql? 'CUT'
 	end
 
 	def to_s
@@ -38,7 +38,7 @@ class Player
 	end
 
 	def overall_score
-		@r1.to_i + @r2.to_i - 144
+		@r1.to_i + @r2.to_i - (72*2)
 	end
 
 end
