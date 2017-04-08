@@ -5,26 +5,32 @@ require './golfer_result.rb'
 require './fantasy_scorer.rb'
 require './fantasy_participant.rb'
 
-parsed_golfer_result_response = JSON.parse(RestClient.get 'http://samsandberg.com/themasters/', {accept: :json})['players']
-golfer_results = parsed_golfer_result_response.map { |player| GolferResult.new(player) }
 
-fantasy_picks = CSV.read('picks.csv')
-fantasy_picks.shift
-fantasy_participants = fantasy_picks.map { |participant_row| FantasyParticipant.new(participant_row) }
 
-scorer = FantasyScorer.new(fantasy_participants, golfer_results)
-scorer.calculate_each_participants_rounds
-
-sorted_participants = fantasy_participants.sort_by { |participant| participant.overall_score_after_three_rounds }
-
-iterations = 1
-current_rank = 1
-last_score = -9999999
-sorted_participants.each do |participant|
-	if participant.overall_score_after_three_rounds > last_score
-		last_score = participant.overall_score_after_three_rounds
-		current_rank = iterations
+def calculate_ranks_response
+	participants = calculate_scores_for_participants
+	response = []
+	participants.each do |participant|
+		response << {
+								team_name: participant.team_name,
+								through_third_round: participant.overall_score_after_three_rounds
+							}
 	end
-	puts "Rank: #{current_rank}, #{participant.name} - overall: #{participant.overall_score_after_three_rounds}"
-	iterations += 1
+	response
+end
+
+private
+
+def calculate_scores_for_participants
+	parsed_golfer_result_response = JSON.parse(RestClient.get 'http://samsandberg.com/themasters/', {accept: :json})['players']
+	golfer_results = parsed_golfer_result_response.map { |player| GolferResult.new(player) }
+
+	fantasy_picks = CSV.read('picks.csv')
+	fantasy_picks.shift
+	fantasy_participants = fantasy_picks.map { |participant_row| FantasyParticipant.new(participant_row) }
+
+	scorer = FantasyScorer.new(fantasy_participants, golfer_results)
+	scorer.calculate_each_participants_rounds
+
+	fantasy_participants.sort_by { |participant| participant.overall_score_after_three_rounds }
 end
