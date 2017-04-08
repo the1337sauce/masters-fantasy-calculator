@@ -1,5 +1,5 @@
 class GolferResult
-  attr_reader :r1, :r2, :r3, :r4, :to_par, :pos, :name
+  attr_reader :r1, :r2, :r3, :r4, :to_par, :pos, :name, :thru
 
   def initialize response_hash
     @r1 = response_hash['r1']
@@ -27,10 +27,6 @@ class GolferResult
 
   def to_s
     "#{@name} currently #{@to_par}"
-  end
-
-  def overall_score
-    @r1.to_i + @r2.to_i - (72*2)
   end
 
 end
