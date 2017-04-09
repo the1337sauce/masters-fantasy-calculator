@@ -23,6 +23,10 @@ class FantasyParticipant
     round1_score + round2_score + round3_score
   end
 
+  def final_overall_score
+    round1_score + round2_score + round3_score + round4_score
+  end
+
   def to_s
     "Participant #{@name}-golfers: #{golfer_names}-team name #{@team_name}-#{@round1_score}-\n
     #{@round2_score}"

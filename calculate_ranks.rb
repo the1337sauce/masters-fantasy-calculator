@@ -16,14 +16,14 @@ def calculate_ranks_response
 	iterations = 1
 
 	participants.each do |participant|
-		through_third_round = participant.overall_score_after_three_rounds
-		if through_third_round > last_score
+		final_overall_score = participant.final_overall_score
+		if final_overall_score > last_score
 			current_rank = iterations
-			last_score = through_third_round
+			last_score = final_overall_score
 		end
 		response << {
 								team_name: participant.team_name,
-								through_third_round: through_third_round,
+								through_third_round: final_overall_score,
 								rank: current_rank
 							}
 		iterations = iterations + 1
@@ -44,5 +44,5 @@ def calculate_scores_for_participants
 	scorer = FantasyScorer.new(fantasy_participants, golfer_results)
 	scorer.calculate_each_participants_rounds
 
-	fantasy_participants.sort_by { |participant| participant.overall_score_after_three_rounds }
+	fantasy_participants.sort_by { |participant| participant.final_overall_score }
 end
