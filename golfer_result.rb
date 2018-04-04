@@ -11,9 +11,6 @@ class GolferResult
     @thru = response_hash['thru']
     @name = response_hash['player']
     @today = calculate_today(response_hash)
-    if @name.eql? 'Rafael Cabrera Bello'
-      @name = 'Rafael Cabrera-Bello'
-    end
     if @name.eql? "Sean O&#39;Hair"
       @name = "Sean O'Hair"
     end
