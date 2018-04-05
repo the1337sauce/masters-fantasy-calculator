@@ -17,7 +17,7 @@ class GolferResult
   end
 
   def calculate_today response_hash
-    response_hash['thru'] == 'CUT' ? 8 : response_hash['today'].to_i
+    response_hash['thru'] == 'CUT' ? 80 : response_hash['today'].to_i
   end
 
   def calculate_round3 response_hash
