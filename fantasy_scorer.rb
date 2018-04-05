@@ -10,14 +10,16 @@ class FantasyScorer
 
   def calculate_each_participants_rounds
     @fantasy_participants.each do |participant|
+      participant.todays_score = calculate_todays_round_thus_far(participant.golfer_names)
       participant.round1_score = calculate_round(:r1, participant.golfer_names)
       participant.round2_score = calculate_round(:r2, participant.golfer_names)
       participant.round3_score = calculate_round(:r3, participant.golfer_names)
-      participant.round4_score = calculate_todays_round_thus_far(participant.golfer_names)
+      participant.round4_score = calculate_round(:r4, participant.golfer_names)
+      participant.todays_top_golfers = calculate_todays_round_top_golfers_thus_far(participant.golfer_names)
       participant.round1_top_golfers = top_golfers(:r1, participant.golfer_names)
       participant.round2_top_golfers = top_golfers(:r2, participant.golfer_names)
       participant.round3_top_golfers = top_golfers(:r3, participant.golfer_names)
-      participant.round4_top_golfers = calculate_todays_round_top_golfers_thus_far(participant.golfer_names)
+      participant.round4_top_golfers = top_golfers(:r4, participant.golfer_names)
     end
   end
 

@@ -1,8 +1,8 @@
 class FantasyParticipant
 
   attr_reader :golfer_names, :team_name
-  attr_accessor :round1_score, :round2_score, :round3_score, :round4_score,
-    :round1_top_golfers, :round2_top_golfers, :round3_top_golfers, :round4_top_golfers
+  attr_accessor :todays_score, :round1_score, :round2_score, :round3_score, :round4_score,
+    :todays_top_golfers, :round1_top_golfers, :round2_top_golfers, :round3_top_golfers, :round4_top_golfers
 
   def initialize participant_row
     @team_name = participant_row[1]
@@ -13,16 +13,20 @@ class FantasyParticipant
     names = participant_row[2..9].compact.map { |golfer_name| golfer_name.strip }
   end
 
-  def overall_score_after_two_rounds
-    round1_score + round2_score
+  def thursdays_leaderboard_score
+    todays_score
   end
 
-  def overall_score_after_three_rounds
-    round1_score + round2_score + round3_score
+  def fridays_leaderboard_score
+    round1_score + todays_score
   end
 
-  def final_overall_score
-    round1_score + round2_score + round3_score + round4_score
+  def saturdays_leaderboard_score
+    round1_score + round2_score + todays_score
+  end
+
+  def sundays_leaderboard_score
+    round1_score + round2_score + round3_score + todays_score
   end
 
   def to_s
