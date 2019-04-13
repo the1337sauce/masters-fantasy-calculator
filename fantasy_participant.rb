@@ -5,12 +5,12 @@ class FantasyParticipant
     :todays_top_golfers, :round1_top_golfers, :round2_top_golfers, :round3_top_golfers, :round4_top_golfers
 
   def initialize participant_row
-    @team_name = participant_row[1]
+    @team_name = participant_row[0]
     @golfer_names = calculate_golfer_names(participant_row)
   end
 
   def calculate_golfer_names participant_row
-    names = participant_row[2..9].compact.map { |golfer_name| golfer_name.strip }
+    names = participant_row[1..8].compact.map { |golfer_name| golfer_name.strip }
   end
 
   def thursdays_leaderboard_score
